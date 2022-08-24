@@ -1,0 +1,19 @@
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor _HttpContext
+@using Components.Svedea.UmbracoBlocks
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Homepage>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "Master.cshtml";
+}
+
+<h1>@Model.Title</h1>
+
+@{
+    foreach (var block in Model.Blocks)
+    {
+        var partialViewName = "blocklist/Components/" + block.Content.ContentType.Alias;
+        @Html.Partial(partialViewName, block)
+    }
+}

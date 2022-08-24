@@ -1,0 +1,57 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage;
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="https://appstage.svedea.se/_content/Components.Svedea/css/main.css?v=lH6ebN3aveK2Rg90XQLEiPBoQh0sDQkPhQtI6dwf29o">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css">
+
+        <style>
+            .alert-info {
+                color: #055160;
+                background-color: #cff4fc;
+                border-color: #b6effb;
+                margin-top: 50px;
+            }
+
+            .alert-success {
+                color: #0f5132;
+                background-color: #f8f8f9;
+                border-color: #badbcc;
+                margin-top: 50px;
+            }
+
+            .alert-dismissible {
+                padding-right: 3rem;
+            }
+
+            .alert {
+                position: relative;
+                padding: 1rem 1rem;
+                margin-bottom: 1rem;
+                border: 1px solid transparent;
+                border-radius: 0.25rem;
+            }
+
+            .fade {
+                transition: opacity .15s linear;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="main-layout not-authenticated">
+            @RenderBody()
+        </div>
+        <script src="~/_framework/blazor.server.js"></script>
+    </body>
+</html>
