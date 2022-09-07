@@ -1,15 +1,17 @@
 ﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor _HttpContext
+@using BlazorWebAssembly.UmbracoBlocks
 @using Umbraco.Cms.Core.Models.Blocks
 @using Umbraco.Cms.Web.Common.PublishedModels;
-@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Homepage>
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.BlazorServerPrerendered>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
 @{
-    Layout = null;
+	Layout = null;
 }
 
 <!DOCTYPE html>
 <html>
 <head>
+    <base href="~/" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
@@ -52,20 +54,15 @@
 
 <body>
     <div class="main-layout not-authenticated">
-        <h1>@Model.Title</h1>
-        @foreach(var link in Model.Links)
-        {
-	        <div class="container-content">
-                <ul class="ul--link-list ">
-                    <li class="li-link-item ">
-                        <litemplate>
-                            <a href="@link.Url">@link.Name</a>
-                        </litemplate>
-                    </li>
-                </ul>
-            </div>
+        @{
+            foreach (var block in Model.Blocks)
+            {
+                var partialViewName = "blocklist/Components/" + block.Content.ContentType.Alias;
+                @Html.Partial(partialViewName, block)
+            }
         }
     </div>
     <script src="~/_framework/blazor.server.js"></script>
 </body>
 </html>
+

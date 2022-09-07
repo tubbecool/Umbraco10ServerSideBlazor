@@ -1,0 +1,30 @@
+﻿@using Components.Svedea.Component
+@using BlazorWebAssembly.UmbracoBlocks
+@using Microsoft.JSInterop
+@using System.ComponentModel
+@using System.Xml.Serialization
+@using Newtonsoft.Json
+@inject IJSRuntime jsRuntime
+
+<Column Width="Components.Svedea.Component.Layout.Column.ColumnWidths.col100" >
+    <Panel PanelHeadingText="@Model.Title" PanelPillText="@Model.PanelPillText" PanelPillColor="@Panel.PillColorStyle.red"
+                       PanelMarginTopStyle="@Panel.MarginTopStyle.mt50" PanelBackgroundColor="@Panel.BackgroundColorStyle.grey">
+        <PanelIngress>
+            <Paragraph UserClasses="paragraph">
+                @Model.Paragraph
+            </Paragraph>
+        </PanelIngress>
+    </Panel>
+</Column>
+
+@code {
+    [Parameter] 
+    public UmbracoPanelModel Model { get; set; }
+
+    protected override void OnInitialized()
+    {
+
+    }
+
+}
+

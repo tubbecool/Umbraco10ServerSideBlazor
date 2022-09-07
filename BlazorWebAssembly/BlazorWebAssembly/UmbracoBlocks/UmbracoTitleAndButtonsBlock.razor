@@ -1,0 +1,63 @@
+﻿@using Components.Svedea.Component
+@using BlazorWebAssembly.UmbracoBlocks
+@using Microsoft.JSInterop
+@using System.ComponentModel
+@using System.Xml.Serialization
+@using Newtonsoft.Json
+@inject IJSRuntime jsRuntime
+@inject NavigationManager navigationManager
+
+<Panel PanelMarginTopStyle="@Panel.MarginTopStyle.mt50" PanelBackgroundColor="@Panel.BackgroundColorStyle.grey">
+    <ChildContent>
+        <Title TitleMarginBottomStyle="Title.MarginBottomStyle.mb10">
+            <TitleHeadingText>
+                <span class="h2-s">
+                    @Model.Title
+                </span>
+            </TitleHeadingText>
+            <TitleText>
+                <Paragraph UserClasses="paragraph">@((MarkupString)Model.Paragraph)</Paragraph>
+            </TitleText>
+        </Title>
+        <Column Width="Components.Svedea.Component.Layout.Column.ColumnWidths.col50" UserClasses="mb-30">
+            <Button @onclick="Log"
+                    Type="Button.ButtonType.Secondary"
+                    positionButton="Button.ButtonPosition.center"
+                    ButtonText="@Model.LogButtonText"
+                    Size="Button.ButtonSize.Medium">
+            </Button>
+        </Column>
+        <Column Width="Components.Svedea.Component.Layout.Column.ColumnWidths.col50" UserClasses="button-container">
+            <Button @onclick="Wait"
+                    ButtonText="@Model.LinkButton.ButtonText"
+                    Type="Button.ButtonType.Secondary"
+                    UseWaitIndicator=@Model.UseWaitIndication
+                    positionButton="Button.ButtonPosition.center"
+                    Size="Button.ButtonSize.Medium">
+            </Button>
+        </Column>
+    </ChildContent>
+</Panel>
+
+@code {
+    [Parameter]
+    public UmbracoTitleAndButtonsModel Model { get; set; }
+
+    protected override void OnInitialized()
+    {
+
+    }
+
+    public async Task Log()
+    {
+        await jsRuntime.InvokeAsync<string>("console.log", Model.LogText);
+    }
+
+    public async Task Wait()
+    {
+        await Task.Delay(4000);
+        navigationManager.NavigateTo(Model.LinkButton.Link, true);
+    }
+
+}
+

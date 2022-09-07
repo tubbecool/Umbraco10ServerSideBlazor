@@ -1,12 +1,11 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Components.WebAssembly.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Text.Json.Serialization;
-using Umbraco.Cms.Core.DependencyInjection;
-using Umbraco.Extensions;
 
 namespace Umbraco10ServerSideBlazor
 {
@@ -39,6 +38,10 @@ namespace Umbraco10ServerSideBlazor
         /// </remarks>
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<LazyAssemblyLoader>();
+            // Add support for razor pages
+            services.AddRazorPages();
+
             services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
@@ -63,7 +66,13 @@ namespace Umbraco10ServerSideBlazor
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseWebAssemblyDebugging();
             }
+
+            app.UseBlazorFrameworkFiles();
+            app.UseStaticFiles();
+
+            app.UseRouting();
 
             app.UseUmbraco()
                 .WithMiddleware(u =>
@@ -78,9 +87,14 @@ namespace Umbraco10ServerSideBlazor
                     u.UseWebsiteEndpoints();
                 });
 
+
+
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapRazorPages();
                 endpoints.MapBlazorHub();
+
+                endpoints.MapFallbackToPage("/_Host");
             });
         }
     }

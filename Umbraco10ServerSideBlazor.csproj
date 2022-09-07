@@ -1,10 +1,18 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
+      <Compile Remove="BlazorWebAssembly\**" />
+      <Content Remove="BlazorWebAssembly\**" />
+      <EmbeddedResource Remove="BlazorWebAssembly\**" />
+      <None Remove="BlazorWebAssembly\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.0.4" />
         <PackageReference Include="Umbraco.Cms" Version="10.1.0" />
     </ItemGroup>
 
@@ -17,9 +25,13 @@
     <ItemGroup>
       <Folder Include="Models\" />
       <Folder Include="Shared\" />
+      <Folder Include="wwwroot\Style\" />
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="C:\Net\app\Components.Svedea\Components.Svedea.csproj" />
+      <None Include="wwwroot\Style\main.css" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="BlazorWebAssembly\BlazorWebAssembly\BlazorWebAssembly.csproj" />
     </ItemGroup>
 
 

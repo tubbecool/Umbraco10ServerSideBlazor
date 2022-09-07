@@ -1,5 +1,5 @@
 ﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>;
-@using Components.Svedea.UmbracoBlocks
+@using BlazorWebAssembly.UmbracoBlocks
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
 @using System.Text.Json
 
@@ -12,16 +12,19 @@
             Title = content.Title,
             Paragraph = content.Paragraph
         };
+
+    var settings = (ContentModels.Settings)Model.Settings;
 }
 
-@(await Html.RenderComponentAsync<UmbracoPanelBlock>(RenderMode.ServerPrerendered, new { Model = umbracoPanelModel }))
-
-@*
-All types of parameters are supported, except:
-- Generic parameters.
-- Non-serializable parameters.
-- Inheritance in collection parameters.
-- Parameters whose type is defined outside of the Blazor WebAssembly app or within a lazily-loaded assembly.
-- For receiving a RenderFragment delegate for child content (for example, param-ChildContent="..."). For this scenario, we recommend creating a Razor component (.razor) that references the component you want to render with the child content you want to pass and then invoke the Razor component from the page or view with the Component Tag Helper.
-(https://docs.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/built-in/component-tag-helper?view=aspnetcore-6.0)
-*@
+@if (settings.BlazorType == "BlazorServerPrerendered")
+{
+    @(await Html.RenderComponentAsync<UmbracoPanelBlock>(RenderMode.ServerPrerendered, new { Model = umbracoPanelModel }))
+}
+else if (settings.BlazorType == "BlazorWebAssemblyPrerendered")
+{
+    @(await Html.RenderComponentAsync<UmbracoPanelBlock>(RenderMode.WebAssemblyPrerendered, new { Model = umbracoPanelModel }))
+}
+else
+{
+    <p>Select BlazorType to render component</p>
+}

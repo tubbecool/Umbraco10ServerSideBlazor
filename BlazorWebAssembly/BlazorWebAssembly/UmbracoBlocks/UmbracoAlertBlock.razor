@@ -1,0 +1,74 @@
+﻿@using BlazorWebAssembly.UmbracoBlocks
+
+<Column Width="Components.Svedea.Component.Layout.Column.ColumnWidths.col100" >
+    @foreach (var alert in ActiveAlerts)
+    {
+        <div class="alert alert-@alert.Type alert-dismissible fade show" role="alert">
+            @if (!string.IsNullOrWhiteSpace(alert.Title))
+            {
+                <h4 class="alert-heading">@alert.Title</h4>
+            }
+            @alert.Text
+            
+            <div>
+            <Button @onclick="@(() => CloseAlert(alert))"
+                UseWaitIndicator=true
+                Type="Button.ButtonType.Secondary"
+                positionButton="Button.ButtonPosition.center"
+                ButtonText="Close"
+                Size="Button.ButtonSize.Small">
+            </Button>
+            </div>
+        </div>
+    }
+
+    <Button @onclick="@FetchAlert"
+        UseWaitIndicator=true
+        Type="Button.ButtonType.Secondary"
+        positionButton="Button.ButtonPosition.center"
+        ButtonText="Add new alert"
+        Size="Button.ButtonSize.Medium">
+    </Button>
+</Column>
+
+@code {
+    [Parameter]
+    public UmbracoAlertModel Model { get; set; }
+
+    public List<AlertModel> ActiveAlerts { get; set; }
+
+    protected override void OnInitialized()
+    {
+        ActiveAlerts = new List<AlertModel>
+        {
+            new AlertModel
+            {
+                Title = Model.Title,
+                Text = Model.Date.ToLongDateString(),
+                Type = "info"
+            }
+        };
+    }
+
+    private void CloseAlert(AlertModel alert)
+    {
+        ActiveAlerts.Remove(alert);
+    }
+
+    private void FetchAlert()
+    {
+        ActiveAlerts.Add(new AlertModel
+        {
+            Title = Model.Title,
+            Text = Model.Date.ToLongDateString(),
+            Type = "success"
+        });
+    }
+
+    public class AlertModel
+    {
+        public string Title { get; set; }
+        public string Text { get; set; }
+        public string Type { get; set; }
+    }
+}
