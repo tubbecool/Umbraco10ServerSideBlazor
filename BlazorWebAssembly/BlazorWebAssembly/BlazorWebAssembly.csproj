@@ -17,4 +17,9 @@
     <ProjectReference Include="..\..\..\..\..\..\..\Net\app\Components.Svedea\Components.Svedea.csproj" />
   </ItemGroup>
 
+	<!--<ItemGroup>
+		<BlazorWebAssemblyLazyLoad Include="Components.Svedea.dll" />
+		<BlazorWebAssemblyLazyLoad Include="Newtonsoft.Json.dll"/>
+	</ItemGroup>-->
+
 </Project>

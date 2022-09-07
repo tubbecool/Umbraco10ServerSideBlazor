@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.AspNetCore.Components.WebAssembly.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -53,7 +54,7 @@ namespace Umbraco10ServerSideBlazor
                 .Build();
 #pragma warning restore IDE0022 // Use expression body for methods
 
-            services.AddServerSideBlazor();
+            //services.AddServerSideBlazor();
         }
 
         /// <summary>
@@ -92,7 +93,7 @@ namespace Umbraco10ServerSideBlazor
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
-                endpoints.MapBlazorHub();
+                //endpoints.MapBlazorHub();
 
                 endpoints.MapFallbackToPage("/_Host");
             });

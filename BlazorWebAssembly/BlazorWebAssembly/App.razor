@@ -1,4 +1,10 @@
-﻿<Router AppAssembly="@typeof(App).Assembly">
+﻿@*@using System.Reflection
+@using Microsoft.AspNetCore.Components.WebAssembly.Services
+@inject LazyAssemblyLoader AssemblyLoader*@
+<Router AppAssembly="@typeof(App).Assembly">
+@*<Router AppAssembly="@typeof(App).Assembly"
+        AdditionalAssemblies="@lazyLoadedAssemblies"
+        OnNavigateAsync="@OnNavigateAsync">*@
     <Found Context="routeData">
         <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
         <FocusOnNavigate RouteData="@routeData" Selector="h1" />
@@ -10,3 +16,25 @@
         </LayoutView>
     </NotFound>
 </Router>
+
+
+@code {
+    //private List<Assembly> lazyLoadedAssemblies = new();
+
+    //private async Task OnNavigateAsync(NavigationContext args)
+    //{
+    //    try
+    //    {
+
+    //        var assemblies = await AssemblyLoader.LoadAssembliesAsync(
+    //            new[] { "Components.Svedea.dll", "Newtonsoft.Json.dll" });
+    //        lazyLoadedAssemblies.AddRange(assemblies);
+
+    //    }
+    //    catch (Exception ex)
+    //    {
+
+    //    }
+    //}
+
+}
