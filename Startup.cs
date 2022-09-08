@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components.WebAssembly.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,7 +37,7 @@ namespace Umbraco10ServerSideBlazor
         /// </remarks>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<LazyAssemblyLoader>();
+            //services.AddScoped<LazyAssemblyLoader>();
             // Add support for razor pages
             services.AddRazorPages();
 

@@ -13,7 +13,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <link rel="stylesheet" href="~/Style/main.css">
+    <link rel="stylesheet" href="https://app.svedea.se/_content/Components.Svedea/css/main.css?v=dv_ldUYZeeH-dd0nU43XfU2PTzvZsPtX9SImF0dzX_w">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css">
 
@@ -53,6 +53,7 @@
 <body>
     <div class="main-layout not-authenticated">
         <h1>@Model.Title</h1>
+        No Blazor here
         @foreach(var link in Model.Links)
         {
 	        <div class="container-content">
@@ -66,6 +67,6 @@
             </div>
         }
     </div>
-    <script src="~/_framework/blazor.server.js"></script>
+    @*<script src="~/_framework/blazor.server.js"></script>*@
 </body>
 </html>
